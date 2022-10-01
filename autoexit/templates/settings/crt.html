@@ -1,0 +1,271 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+<style>
+	#i_hide{display: none;}
+</style>
+
+<!-- Navbar Start -->
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+  <div class="container-fluid">
+  	<div class="navbar-wrapper">
+  		<a class="navbar-brand">CRT Configuration</a>
+  		<button type="button" title="Save" class="btn btn-round btn-info" onclick="save_crt_settings()">Save</button>
+  	</div>
+  </div>
+</nav><!-- End Navbar -->
+
+<!--  Content Start -->
+<div class="content">
+	<div class="container-fluid">
+		<!-- Row start -->
+		<div class="row">
+			<!-- Primary CRT start -->
+			<div class="col-md-5">
+				<div class="card">
+					<div class="card-header card-header-primary">
+						<h4 class="card-title">CRT310</h4>
+					</div>
+					<div class="card-body">
+						<div class="form-group">
+							<label for="txtCOM">COM Port</label>
+							<select class="browser-default custom-select" id="txtCOM" value={{ com }}>
+								{% if com == 'COM1'%}
+								<option value="COM1" selected>COM1</option>
+								<option value="COM2">COM2</option>
+								<option value="COM3">COM3</option>
+								<option value="COM4">COM4</option>
+								<option value="COM5">COM5</option>
+
+								{% elif com == 'COM2' %}
+								<option value="COM1">COM1</option>
+								<option value="COM2" selected>COM2</option>								
+								<option value="COM3">COM3</option>
+								<option value="COM4">COM4</option>
+								<option value="COM5">COM5</option>
+
+								{% elif com == 'COM3' %}								
+								<option value="COM1">COM1</option>
+								<option value="COM2">COM2</option>
+								<option value="COM3" selected>COM3</option>
+								<option value="COM4">COM4</option>
+								<option value="COM5">COM5</option>
+
+
+								{% elif com == 'COM4' %}								
+								<option value="COM1">COM1</option>
+								<option value="COM2">COM2</option>
+								<option value="COM3">COM3</option>
+								<option value="COM4" selected>COM4</option>								
+								<option value="COM5">COM5</option>
+
+								{% else %}									
+								<option value="COM1">COM1</option>
+								<option value="COM2">COM2</option>
+								<option value="COM3">COM3</option>
+								<option value="COM4">COM4</option>
+								<option value="COM5" selected>COM5</option>
+
+								{% endif%}								
+																							
+												
+							</select>							
+						</div>
+						<div class="form-group">
+							<label for="txtBaud">Baud Rate</label>
+							<input type="number" name="txtBaud" class="form-control" id="txtBaud" value={{baud}}>
+						</div>		
+						<!-- <button onclick="MoveCard()"type="button" class="btn btn-primary" id="btnMovetoRF"> Move to RF </button>	
+						<button onclick="ReleaseCard()"type="button" class="btn btn-primary" id="btnMovetGate">Move to Gate</button>	 -->	
+					</div>
+
+				</div>
+
+
+			</div><!-- Primary CRT end -->
+
+
+			<!-- Seconday CRT start -->
+			<!-- <div class="col-md-5">
+				<div class="card">
+					<div class="card-header card-header-primary">
+						<h4 class="card-title">Secondary CRT</h4>
+					</div>
+					<div class="card-body">
+						<div class="form-group">
+							<label for="txtCOM_">COM Port</label>
+							<select class="browser-default custom-select" id="txtCOM_" value={{ com_ }}>
+							{% if com_ == 'COM1'%}
+								<option value="COM1" selected>COM1</option>
+								<option value="COM2">COM2</option>
+								<option value="COM3">COM3</option>
+								<option value="COM4">COM4</option>
+								<option value="COM5">COM5</option>
+
+								{% elif com_ == 'COM2' %}
+								<option value="COM1">COM1</option>
+								<option value="COM2" selected>COM2</option>								
+								<option value="COM3">COM3</option>
+								<option value="COM4">COM4</option>
+								<option value="COM5">COM5</option>
+
+								{% elif com_ == 'COM3' %}								
+								<option value="COM1">COM1</option>
+								<option value="COM2">COM2</option>
+								<option value="COM3" selected>COM3</option>
+								<option value="COM4">COM4</option>
+								<option value="COM5">COM5</option>
+
+
+								{% elif com_ == 'COM4' %}								
+								<option value="COM1">COM1</option>
+								<option value="COM2">COM2</option>
+								<option value="COM3">COM3</option>
+								<option value="COM4" selected>COM4</option>								
+								<option value="COM5">COM5</option>
+
+								{% else %}									
+								<option value="COM1">COM1</option>
+								<option value="COM2">COM2</option>
+								<option value="COM3">COM3</option>
+								<option value="COM4">COM4</option>
+								<option value="COM5" selected>COM5</option>
+
+								{% endif%}				
+							</select>							
+						</div>
+						<div class="form-group">
+							<label for="txtBaud_">Baud Rate</label>
+							<input type="number" name="txtBaud_" class="form-control" id="txtBaud_" value={{baud_}}>
+						</div>						
+					</div>
+				</div>				
+			</div> --><!-- Seconday CRT end -->
+
+		</div><!-- Row end	 -->
+
+		<!-- <div class="row">
+			<div class="col-md-5">
+				<div class="card">
+					<div class="card-header card-header-primary">
+						<h4 class="card-title">Device Settings</h4>
+					</div>					
+					<div class="card-body">
+						<div class="form-check">
+							<label class="form-check-label">
+
+								{% if is_read == 'true' %}
+								<input onclick="save_settings_checkbox('txtReadCard','is_read')" type="checkbox" id="txtReadCard" name="txtReadCard" class="form-check-input" checked>
+								{% else %}
+								<input onclick="save_settings_checkbox('txtReadCard','is_read')" type="checkbox" id="txtReadCard" name="txtReadCard" class="form-check-input">
+								{% endif %}
+								
+								Read Card
+								<span class="form-check-sign">
+									<span class="check"></span>
+								</span>
+							</label>							
+						</div>
+
+						<div class="form-check">
+							<label class="form-check-label">
+ 
+								{% if single_only == 'true' %}
+								<input onclick="save_settings_checkbox('txtSingle','single_only')" type="checkbox" id="txtSingle" name="txtSingle" class="form-check-input" checked>
+
+								{% else %}
+								<input onclick="save_settings_checkbox('txtSingle','single_only')" type="checkbox" id="txtSingle" name="txtSingle" class="form-check-input">
+								{% endif %}
+								
+								Use Primary CRT Only
+								<span class="form-check-sign">
+									<span class="check"></span>
+								</span>
+							</label>							
+						</div>
+
+
+					</div>
+				</div>				
+			</div>	
+
+			<div class="col-md-5">
+				<div class="card">
+					<div class="card-header card-header-primary">
+						<h4 class="card-title">Authentication</h4>
+					</div>					
+					<div class="card-body">
+						<div class="form-group">
+							<label for="txtCamPassword">Encryption Key</label>
+							<div class="input-group">
+								<input type="password" class="form-control" id="txtEncKey" name="txtEncKey" value={{enc_key}}>
+								<div class="input-group-append">
+									<div class="input-group-text">
+										<i class="fa fa-eye" onclick="toggle_enckey()" id="i_show"></i>
+										<i class="fa fa-eye-slash" onclick="toggle_enckey()" id="i_hide"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						
+
+
+					</div>
+				</div>				
+			</div>
+
+
+
+		</div>
+ -->
+
+
+		
+
+
+
+
+
+
+
+	</div>
+</div><!-- Content End -->
+
+<script>
+  function save_crt_settings(){
+    com=document.getElementById('txtCOM').value;
+    baud=document.getElementById('txtBaud').value;
+    com_=document.getElementById('txtCOM_').value;
+    baud_=document.getElementById('txtBaud_').value;
+        
+    save_settings('com',com);
+    save_settings('baud',baud);
+    save_settings('com_',com_);
+    save_settings('baud_',baud_);
+    save_settings_checkbox(txtReadCard,'is_read')
+    save_settings_checkbox(txtSingle,'single_only');
+  }
+  
+  function toggle_enckey(){
+    var x = document.getElementById("txtEncKey");
+
+    
+  if (x.type === "password") {
+    x.type = "text";
+    w3.hide("#i_show");
+    w3.show("#i_hide");
+
+  } else {
+    x.type = "password";
+      w3.show("#i_show");
+    w3.hide("#i_hide");
+  }
+
+  }
+
+</script>
+
+
+
+{% endblock %}

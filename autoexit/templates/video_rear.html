@@ -1,0 +1,33 @@
+{% extends "bootstrap.html" %}
+{% load static %}
+{% block content %}
+<style>
+  .navbar a {
+  float: left;
+  text-align: center;
+  padding: 12px;
+  color: white;
+  text-decoration: none;
+  font-size: 17px;
+  }
+  .navbar a:hover {
+  background-color: #045757;
+  border-radius: 25px;
+  }
+  
+}
+  
+</style>
+<nav class="navbar navbar-expand-sm bg-info navbar-dark">
+  <a href="{% url 'settings_camera' %}"><i class="fa fa-arrow-circle-left fa-lg"></i>  Return</a>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8  offset-lg-2">
+            <h3 class="mt-5">Live Streaming</h3>
+            <img src="{% url 'video_rear' %}" width="100%" height="=100%">
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

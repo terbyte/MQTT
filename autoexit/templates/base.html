@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     
+    <script src="{% static 'js/clock.js' %}"></script> 
+    <link rel="shortcut icon" href="#">
+
+    <link rel="stylesheet" href="{% static 'css/w3.css'%}">
+    <link rel="stylesheet" href="{% static 'css/preloader.css'%}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.css'%}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/default.css'%}">
+<link rel="stylesheet" href="{% static 'css/index.css'%}">  
+     
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/device.js' %}"></script>
+    <script src="{% static 'js/w3.js' %}"></script>  
+    <script src="{% static 'js/sweetalert2.min.js' %}"></script>
+    <script src="{% static 'js/settings_function.js'%}"></script>
+
+    <script src="{% static 'js/jQuery_v3_3_1.js' %}"></script>
+    
+   
+    
+    <title>PMS-AutoExit</title>
+
+      
+  </head>
+  <body>
+  	{% block content %}{% endblock %}
+   
+  </body>
+</html>

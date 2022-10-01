@@ -1,0 +1,81 @@
+ .mainbody::-webkit-scrollbar{display: none;}
+  @-moz-document url-prefix() {html,body, .mainsidebar{overflow: hidden !important;}}
+.clock-top-left {position: absolute;top: 40px;left: 16px;}
+.shadow-text{text-shadow:4px 4px 0 #444}
+.footer-bottom{position: : absolute; top: 768;}
+.logo-border{border-color: #ff9900;}
+.marquee-bottom {
+  position: absolute;
+  bottom: 27px;
+  right: 16px;
+}
+.column {
+  float: left;
+  background-color: #fff;
+}
+
+.left, .right {
+  width: 10%;
+  background-color: #fff;
+}
+
+.middle {
+  width: 80%;
+  background-color: #fff;
+}
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+  .mySlides {display:none;height: 500px; width: 100%;}
+  .myboard {display:none;height: 500px; width: 100%;}
+  .card_insert{display: none;}
+  .card_verified{display: none;}
+  .card_notverified{display: none;}
+  .card_invalid{display: none;}
+  .card_exceed{display: none;}
+  .card_errors3{display: none;}
+  .card_errors4{display: none;}
+  .machine_unavailable{display: none;}
+  .novehicle{display: none;}
+  .insert_ticket{display: none;}
+  .used_ticket{display: none;}
+  .card_gp{display: none;}
+
+ .menu{
+    width: 15.5rem;
+    height: 10rem;
+    background-color: #f4f4f4;
+    color: #333;
+    border:1.5px solid #008080;
+    box-shadow: 2px 2px 2px #999;
+    border-radius:0.2rem;
+    list-style: none;
+    position: fixed;
+  }
+
+  .menu.off{
+    top: -200%;
+    left: -200%;
+  }
+
+  .menu-item{
+    height: 2rem;
+    line-height: 1.5rem;
+    font-size: 1rem;
+    font-weight: 100;
+    /*padding: 0 1rem;*/
+    cursor: pointer;
+  }
+
+  .menu-item:hover,.menu-item:active{
+    color: #008080;
+    font-weight: 500;
+  }
+  .menu a{
+    text-decoration:none;
+  }

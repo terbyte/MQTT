@@ -1,0 +1,130 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+<!-- Navbar Start -->
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+  <div class="container-fluid">
+    <div class="navbar-wrapper">
+      <a class="navbar-brand" href="javascript:;">System Folders</a>
+      <button type="button" title="Save" class="btn btn-round btn-info" onclick="save_folder_settings()">Save</button>
+    </div>
+  </div>
+</nav><!-- End Navbar -->
+
+<!--  Content Start -->
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title">Logo</h4>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="txtLogo">File Path</label>
+              <input type="text" class="form-control" id="txtLogo" value={{logo}}>
+            </div>         
+          </div>
+        </div>        
+      </div>
+
+       <div class="col-md-4">
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title">Ads</h4>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="txtAds">Folder Path</label>
+              <input type="text" class="form-control" id="txtAds" value={{ads}}>
+            </div>         
+          </div>
+        </div>        
+      </div>
+
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title">Announcement</h4>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="txtAnnouncement">Message</label>
+              <textarea class="form-control" id="txtAnnouncement" rows="1">{{announcement}}</textarea>
+              <!-- <input type="text" class="form-control" id="txtAnnouncement" value={{announcement}}> -->
+            </div>         
+          </div>
+        </div>        
+      </div> 
+
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title">Vehicle View</h4>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="txtVehicleFrontViewFolder">Folder Path</label>
+              <input type="text" class="form-control" id="txtVehicleFrontViewFolder" value={{vehicle_view}}>
+            </div>         
+          </div>
+        </div>        
+      </div>
+
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title">Driver View</h4>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="txtDriverViewFolder">Folder Path</label>
+              <input type="text" class="form-control" id="txtDriverViewFolder" value={{driver_view}}>
+            </div>         
+          </div>
+        </div>        
+      </div>
+
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title">LPR Folder</h4>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="txtLPRFolder">Folder Path</label>
+              <input type="text" class="form-control" id="txtLPRFolder" value={{lpr}}>
+            </div>         
+          </div>
+        </div>        
+      </div>  
+
+    </div>    
+  </div>
+</div><!-- Content End -->
+
+<script>
+  function save_folder_settings(){
+    logo=document.getElementById('txtLogo').value;
+    ads=document.getElementById('txtAds').value;
+    announcement=document.getElementById('txtAnnouncement').value;
+    vehicle_view=document.getElementById('txtVehicleFrontViewFolder').value;
+    driver_view=document.getElementById('txtDriverViewFolder').value;
+    lpr=document.getElementById('txtLPRFolder').value;   
+        
+    save_settings('logo',logo);
+    save_settings('ads',ads);
+    save_settings('announcement',announcement);
+    save_settings('vehicle_view',vehicle_view);
+    save_settings('driver_view',driver_view);
+    save_settings('lpr',lpr);
+   
+  }
+  
+ 
+
+</script>
+
+
+{% endblock %}

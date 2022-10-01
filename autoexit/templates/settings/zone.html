@@ -1,0 +1,95 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+<style>
+	#i_hide{display: none;}
+</style>
+<!-- Navbar Start -->
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+  <div class="container-fluid">
+  	<div class="navbar-wrapper">
+  		<a class="navbar-brand">Zone Settings</a>
+  		<button type="button" title="Save" class="btn btn-round btn-info" onclick="save_zone_settings()">Save</button>
+  	</div>
+  </div>
+</nav><!-- End Navbar -->
+
+<!--  Content Start -->
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-5">
+				<div class="card">
+					<div class="card-header card-header-primary">
+						<h4 class="card-title">Zone Details</h4>
+					</div>
+					<div class="card-body">
+						<div class="form-group">
+							<label for="txtZoneName">Zone Name</label>
+							<textarea class="form-control" id="txtZoneName" name="txtZoneName" rows="1">{{zone_name}}</textarea>
+						</div>
+
+						<div class="form-group">
+							<label for="txtZoneID">Zone ID</label>
+							<input type="number" class="form-control" id="txtZoneID" value={{zoneID}}>
+							
+						</div>
+					</div>
+				</div>				
+			</div>
+
+				<div class="col-md-5">
+				<div class="card">
+					<div class="card-header card-header-primary">
+						<h4 class="card-title">Server Details</h4>
+					</div>
+					<div class="card-body">
+						<div class="form-group">
+							<label for="txtserver_IP">IP Address</label>
+							<textarea class="form-control" id="txtserver_IP" name="txtserver_IP" rows="1">{{server_IP}}</textarea>
+						</div>
+					</div>
+				</div>				
+			</div>
+
+
+
+
+		</div>		
+	</div>
+</div><!-- Content End -->
+
+<script>
+
+	 function save_zone_settings(){
+    zone_name=document.getElementById('txtZoneName').value;
+    server_IP=document.getElementById('txtserver_IP').value;
+    zoneID=document.getElementById('txtZoneID').value;
+    save_settings('zone_name',zone_name);
+    save_settings('zoneID',zoneID);
+    save_settings('server',server_IP);
+    
+   
+  }
+
+
+
+	function toggle_enckey(){
+    var x = document.getElementById("txtftp_password");
+
+    
+  if (x.type === "password") {
+    x.type = "text";
+    w3.hide("#i_show");
+    w3.show("#i_hide");
+
+  } else {
+    x.type = "password";
+      w3.show("#i_show");
+    w3.hide("#i_hide");
+  }
+
+  }
+</script>
+
+{% endblock %}

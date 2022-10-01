@@ -1,0 +1,148 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+<style>
+	 #btnStop{display :none;}
+	 #gpio_value{display: none;}
+</style>
+<!-- Navbar Start -->
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+  <div class="container-fluid">
+  	<div class="navbar-wrapper">
+  		<a class="navbar-brand" href="javascript:;">Input Output Settings</a>
+  		<button type="button" title="Save" class="btn btn-round btn-info" onclick="save_io_settings()">Save</button>
+  	</div>
+  </div>
+</nav><!-- End Navbar -->
+
+<!--  Content Start -->
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+
+			<div class="col-md-5">
+				<div class="card">
+					<div class="card-header card-header-primary">
+						<h4 class="card-title">Input</h4>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="form-group">
+							<div class="col-sm-2">
+							<button onclick="start_scan_value()" type="button" class="btn btn-warning" id="btnScan">Scan</button>
+							<button onclick="stop_scan_value()" type="button" class="btn btn-danger" id="btnStop">Stop</button>
+							</div>
+						<div class="col-sm-8">
+							<h3 id="gpio_value" name="gpio_value" class="gpio_value">[[gpio_value]]</h3>
+						</div>		
+							
+						</div>
+						</div>
+
+						
+
+						<div class="form-group">
+							<label for="txtCarLoop">Car Loop</label>
+							<input type="number" class="form-control" id="txtCarLoop" value={{loop_car}}>
+						</div>
+
+						<div class="form-group">
+							<label for="txtMotorLoop">Motor Loop</label>
+							<input type="number" class="form-control" id="txtMotorLoop" value={{loop_motor}}>
+						</div>
+
+						<div class="form-group">
+							<label for="txtCarButton">Car Button</label>
+							<input type="number" class="form-control" id="txtCarButton" value={{button_car}}>
+						</div>
+
+						<div class="form-group">
+							<label for="txtMotorButton">Motor Button</label>
+							<input type="number" class="form-control" id="txtMotorButton" value={{button_motor}}>
+						</div>
+
+						<div class="form-group">
+							<label for="txtHelpButton">Help Button</label>
+							<input type="number" class="form-control" id="txtHelpButton" value={{help_button}}>
+						</div>
+
+						<div class="form-group">
+							<label for="txtCarHelpButton">Help Button for Car</label>
+							<input type="number" class="form-control" id="txtCarHelpButton" value={{help_car}}>
+						</div>
+
+						<div class="form-group">
+							<label for="txtMotorHelpButton">Help Button for Motor</label>
+							<input type="number" class="form-control" id="txtMotorHelpButton" value={{help_motor}}>
+						</div>
+
+						<div class="form-group">
+							<label for="txtVehicleInFront">Vehicle in Front</label>
+							<input type="number" class="form-control" id="txtVehicleInFront" value={{vehicle_in_front}}>
+						</div>				
+						
+					</div>
+
+				</div>				
+			</div>
+
+			<div class="col-md-5">
+				<div class="card">
+					<div class="card-header card-header-primary">
+						<h4 class="card-title">Output</h4>
+					</div>
+					<div class="card-body">
+						<div class="form-group">
+							<label for="txtOutput">Output Pin Number</label>
+							<div class="row">
+								<div class="col-sm-4">
+									<input type="number" class="form-control" id="txtOutput" value={{barrier_pin}}>
+								</div>
+								<div class="col-sm-3">
+									<button onclick="test_trigger(document.getElementById('txtOutput').value)" type="button" class="btn btn-warning" id="btnSaveIO">Test Trigger</button>
+								</div>
+							</div>
+						</div>												
+					</div>
+				</div>				
+			</div>
+
+
+							
+			</div>
+
+		</div>		
+	</div>
+</div><!-- Content End -->
+
+<script>
+  function save_io_settings(){
+    loop_car=document.getElementById('txtCarLoop').value;
+    loop_motor=document.getElementById('txtMotorLoop').value;
+    button_car=document.getElementById('txtCarButton').value;
+    button_motor=document.getElementById('txtMotorButton').value;
+    help_button=document.getElementById('txtHelpButton').value;
+    help_car=document.getElementById('txtCarHelpButton').value;
+    help_motor=document.getElementById('txtMotorHelpButton').value;
+    vehicle_in_front=document.getElementById('txtVehicleInFront').value;
+    barrier_pin=document.getElementById('txtOutput').value;   
+        
+    save_settings('loop_car',loop_car);
+    save_settings('loop_motor',loop_motor);
+    save_settings('button_car',button_car);
+    save_settings('button_motor',button_motor);
+    save_settings('help_button',help_button);
+    save_settings('help_car',help_car);
+    save_settings('help_motor',help_motor);
+    save_settings('vehicle_in_front',vehicle_in_front);
+    save_settings('barrier_pin',barrier_pin);
+    
+  }
+  
+ 
+
+</script>
+
+
+
+{% endblock %}

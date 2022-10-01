@@ -1,0 +1,139 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+<!-- Navbar Start -->
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+  <div class="container-fluid">
+    <div class="navbar-wrapper">
+      <a class="navbar-brand">QR Code Ticket</a>
+      <button type="button" title="Save" class="btn btn-round btn-info" onclick="save()">Save</button>
+    </div>
+  </div>
+</nav><!-- End Navbar -->
+
+<!--  Content Start -->
+<div class="content">
+  <div class="container-fluid">
+    
+    <div class="row">
+      <div class="col-md-5">
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title">Header</h4>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="txtHeader1">Line of Text</label>
+              <textarea class="form-control" id="txtHeader1" rows="2">{{headerline1}}</textarea>
+            </div>
+            <div class="form-group">
+              <label for="txtHeader2">Extra Line of Text</label>
+              <textarea class="form-control" id="txtHeader2" rows="2">{{headerline2}}</textarea>
+            </div>          
+          </div>
+        </div>    
+      </div>
+
+       <div class="col-md-5">
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title">Logo</h4>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="txtQRLogo">File Path</label>
+              <input type="text" class="form-control" id="txtQRLogo" value={{qrlogo}}>
+            </div>                   
+          </div>
+        </div>
+
+
+
+
+
+      </div>
+
+
+
+
+      
+    </div>
+
+    <div class="row">
+      <div class="col-md-5">
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title">Footer</h4>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="txtFooter1">Line of Text</label>
+              <textarea class="form-control" id="txtFooter1" rows="2">{{footerline1}}</textarea>
+            </div>
+            <div class="form-group">
+              <label for="txtFooter2">Extra Line of Text</label>
+              <textarea class="form-control" id="txtFooter2" rows="2">{{footerline2}}</textarea>
+            </div>         
+          </div>
+        </div>  
+      </div>
+
+      
+    </div>
+
+    
+      
+      
+  
+   
+
+      
+
+      
+
+
+   
+
+
+     
+  </div>
+</div><!-- Content End -->
+
+
+<script>
+  function save(){
+    headerline1=document.getElementById('txtHeader1').value;
+    headerline2=document.getElementById('txtHeader2').value;
+    footerline1=document.getElementById('txtFooter1').value;
+    footerline2=document.getElementById('txtFooter2').value;
+    qrlogo=document.getElementById('txtQRLogo').value;
+    save_('headerline1',headerline1);
+    save_('headerline2',headerline2);
+    save_('footerline1',footerline1);
+    save_('footerline2',footerline2);
+    save_('qrlogo',qrlogo);
+  }
+  
+  function save_(key,value){
+
+  $.ajax({
+    url:'save_settings_request',
+    type:'POST',
+    data:{'key':key,'value': value},
+    dataType:'json',
+    success: function(data){
+      Swal.fire({
+        icon:'success',
+        title: 'Settings Saved',
+        toast: true,
+        timer: 1000,
+        timerProgressBar: true,
+      })
+  
+    }
+  })
+}
+</script>
+
+
+{% endblock %}

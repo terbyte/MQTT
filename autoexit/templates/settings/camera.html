@@ -1,0 +1,152 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+<style>
+	#i_hide{display: none;}
+</style>
+<!-- Navbar Start -->
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+  <div class="container-fluid">
+  	<div class="navbar-wrapper">
+  		<a class="navbar-brand" href="javascript:;">Camera Settings</a>
+  		<button type="button" title="Save" class="btn btn-round btn-info" onclick="save_camera_settings()">Save</button>
+  	</div>
+  </div>
+</nav><!-- End Navbar -->
+
+<!--  Content Start -->
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+				
+
+			<div class="col-md-4">
+				<div class="card">
+					<div class="card-header card-header-primary">
+						<h4 class="card-title">Front Camera</h4>
+					</div>
+					<div class="card-body">
+						<form action="{% url 'video_front' %}" method="POST">
+							{% csrf_token %}
+							<div class="form-group">
+								<label for="txtFrontCam">IP Address</label>
+								<input type="text" name="txtFrontCam" class="form-control" id="txtFrontCam" name="ip" value={{cam_front}}>
+							</div>
+							<div class="form-group">
+								<label for="txtFrontChannel">Channel</label>
+								<input type="number" name="channel" id="txtFrontChannel" class="form-control" value={{channel_front}}>
+							</div>
+							<button type="submit" class="btn btn-warning float-right" id="btnTest_camfront">Test</button>						
+						</form>							
+					</div>					
+				</div>				
+			</div>
+
+			<div class="col-md-4">
+				<div class="card">
+					<div class="card-header card-header-primary">
+						<h4 class="card-title">Rear Camera</h4>
+					</div>
+					<div class="card-body">
+						<form action="{% url 'video_rear' %}" method="POST">
+							{% csrf_token %}
+							<div class="form-group">
+								<label for="txtRearCam">IP Address</label>
+								<input type="text" name="txtRearCam" class="form-control" id="txtRearCam" name="txtFrontCam" value={{cam_rear}}>
+							</div>
+							<div class="form-group">
+								<label for="txtRearChannel">Channel</label>
+								<input type="number" name="txtRearChannel" id="txtRearChannel" class="form-control" value={{channel_rear}}>
+							</div>
+							<button type="submit" class="btn btn-warning float-right" id="btnTest_camfront">Test</button>						
+						</form>							
+					</div>				
+				</div>				
+			</div>
+
+			<div class="col-md-4">
+				<div class="card">
+					<div class="card-header card-header-primary">
+						<h4 class="card-title">Face Camera</h4>
+					</div>
+					<div class="card-body">
+						<form action="{% url 'video_face' %}" method="POST">
+							{% csrf_token %}
+							<div class="form-group">
+								<label for="txtFaceCam">IP Address</label>
+								<input type="text" name="txtFaceCam" class="form-control" id="txtFaceCam" name="txtFrontCam" value={{cam_face}}>
+							</div>
+							<div class="form-group">
+								<label for="txtFaceChannel">Channel</label>
+								<input type="number" name="txtFaceChannel" id="txtFaceChannel" class="form-control" value={{channel_face}}>
+							</div>
+							<button type="submit" class="btn btn-warning float-right" id="btnTest_camfront">Test</button>						
+						</form>							
+					</div>					
+				</div>				
+			</div>			
+		</div>
+
+		<div class="row">
+			<div class="col-md-4">
+				<div class="card">
+					<div class="card-header card-header-primary">
+						<h4 class="card-title">Credentials</h4>
+					</div>
+					<div class="card-body">
+						<div class="form-group">
+							<label for="txtCamUsername">Username</label>
+							<input type="text" class="form-control" id="txtCamUsername" value={{cam_username}}>
+						</div>
+						<div class="form-group">
+							<label for="txtCamPassword">Password</label>
+							<div class="input-group">
+								<input type="password" class="form-control" id="txtCamPassword" name="txtCamPassword" value={{cam_password}}>
+								<div class="input-group-append">
+									<div class="input-group-text">
+										<i class="fa fa-eye" onclick="toggle_password()" id="i_show"></i>
+										<i class="fa fa-eye-slash" onclick="toggle_password()" id="i_hide"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>							
+			</div>
+			
+		</div>
+		
+
+
+
+
+	</div>
+</div><!-- Content End -->
+<script>
+  function save_camera_settings(){
+    cam_front=document.getElementById('txtFrontCam').value;
+    channel_front=document.getElementById('txtFrontChannel').value;
+    cam_rear=document.getElementById('txtRearCam').value;
+    channel_rear=document.getElementById('txtRearChannel').value;
+    cam_face=document.getElementById('txtFaceCam').value;
+    channel_face=document.getElementById('txtFaceChannel').value;
+    cam_username=document.getElementById('txtCamUsername').value;
+    cam_password=document.getElementById('txtCamPassword').value;   
+        
+    save_settings('cam_front',cam_front);
+    save_settings('channel_front',channel_front);
+    save_settings('cam_rear',cam_rear);
+    save_settings('channel_rear',channel_rear);
+    save_settings('cam_face',cam_face);
+    save_settings('channel_face',channel_face);
+    save_settings('cam_username',cam_username);
+    save_settings('cam_password',cam_password);
+   
+  }
+  
+ 
+
+</script>
+
+
+{% endblock %}

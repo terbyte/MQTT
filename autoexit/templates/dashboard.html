@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>
+    PMS-AutoExit Settings
+  </title>
+  <meta content='width=device-width, initial-scale=1.0' name='viewport' />
+  
+  <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+  
+  <link href="{% static 'css/material-dashboard.css' %}" rel="stylesheet" />
+
+  <link href="{% static 'css/demo.css' %}" rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
+  
+  <link rel="stylesheet" href="{% static 'css/default.css'%}">
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'bootstrap/bootstrap.min.js' %}"></script>
+  <script src="{% static 'bootstrap/popper.min.js' %}"></script>
+  <script src="{% static 'js/settings_function.js' %}"></script>
+  <script src="{% static 'js/sweetalert2.min.js' %}"></script>
+  <script src="{% static 'js/w3.js' %}"></script>
+  <script src="{% static 'js/require.js' %}"></script>
+  <script src="{% static 'js/text.js' %}"></script>
+  <script src="{% static 'js/device.js' %}"></script>
+  <script src="{% static 'js/settings_function.js' %}"></script>
+
+</head>
+<style>
+  label{
+    color:#3F5378;
+  }
+  .form-check-label{
+    color: rgba(0, 0, 0, 0.9);
+  }
+</style>
+
+<body class="">
+  <div class="wrapper ">
+    <div class="sidebar" data-color="azure" data-background-color="white">
+     
+      <div class="logo float-center"><a href="{% url 'home' %}" class="simple-text logo-normal"><i class="fa fa-arrow-circle-left">Return</i></a></div>
+      
+
+      <div class="sidebar-wrapper" id="sidebar-wrapper">
+        <ul class="nav" id="nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'settings_zone' %}">
+              <i class="fa fa-desktop"></i>
+              <p>Zone Details</p>
+            </a>
+          </li>
+          
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="{% url 'settings_crt' %}">
+              <i class="fa fa-gears"></i>
+              <p>CRT Configuration</p>
+            </a>
+          </li> -->
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'settings_system_folder' %}">
+              <i class="fa fa-folder-open"></i>
+              <p>System Folders</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'settings_input_output' %}">
+              <i class="fa fa-tasks"></i>
+              <p>Input Output</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'settings_camera' %}">
+              <i class="fa fa-camera"></i>
+              <p>Camera</p>
+            </a>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="{% url 'settings_ticket' %}">
+              <i class="fa fa-qrcode"></i>
+              <p>QR Code Ticket</p>
+            </a>
+          </li>
+          -->
+
+
+        </ul>
+      </div>
+
+    </div>
+    <div class="main-panel">
+      {% block content %}
+        {% endblock %}
+     
+     
+     
+    </div>
+  </div>
+  
+
+  
+<script>
+$(document).ready(function() {
+  $('li.active').removeClass('active');
+  $('a[href="' + location.pathname + '"]').closest('li').addClass('active'); 
+});
+</script>
+  
+</body>
+</html>

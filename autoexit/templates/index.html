@@ -1,0 +1,219 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+#txt_excess{display: none;}
+  .text-block {
+  position: absolute;
+  bottom: 150px;
+  /*right: 100px;*/
+  width: 54.6em;
+  display: block;
+    margin-left: auto;
+    margin-right: auto;
+  background-color: #1F497D;
+  color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+  /*opacity: 0.1;*/
+}
+#txtQR{
+  border: 3px solid white;
+    width: 368px;
+    height: 33px;
+    color: white;
+    font-size: 22px;
+    padding-left: 10px;
+    padding:5px; 
+    color:white
+
+}
+#txtQR:focus{outline:none;border-color:white; box-shadow:0 0 10px white;color: white;}
+.exc_txt{color: white;}
+</style>
+
+<audio id="SystemStart"><source src="{% static 'sounds/SystemStart.wav' %}" type="audio/wav"></audio>
+<audio id="sound_card_verified"><source src="{% static 'sounds/card_verified.wav' %}" type="audio/wav"></audio>
+  <audio id="sound_card_gp"><source src="{% static 'sounds/card_gp.wav' %}" type="audio/wav"></audio>
+<audio id="sound_card_notverified"><source src="{% static 'sounds/card_notverified.wav' %}" type="audio/wav"></audio>
+<audio id="sound_card_invalid"><source src="{% static 'sounds/card_invalid.wav' %}" type="audio/wav"></audio>
+  <audio id="sound_card_exceed"><source src="{% static 'sounds/card_exceed.wav' %}" type="audio/wav"></audio>
+<audio id="sound_card_insert"><source src="{% static 'sounds/card_insert.wav' %}" type="audio/wav"></audio>
+ <header>
+           <h1  class="w3-animate-left w3-xxlarge clock-top-left w3-text-white shadow-text" id="clock" ></h1>
+      <img src="{% static 'images/bg_header_long_1024.png' %}">  
+<img id="logo" src="{% static 'images/logo/logo.jpg' %}" class="w3-animate-zoom w3-circle w3-display-bottomright w3-margin-right w3-margin-top w3-white w3-padding-small w3-border-10 w3-border-blue-grey" style="width:150px;height: 150px;">
+     </header>
+<body onload="initClock();settings_toJS();play_systemstart();ws_scan();" class="mainbody w3-white">
+
+<div class="row">
+  <div class="column left">
+
+    <h2 class="w3-text-white">This is hidden column</h2>
+   <input type="password" name="txtQR" id="txtQR" class="txtQR w3-text-white">
+  </div>
+  <div class="column middle">
+
+    <div id="slider" class="slider w3-content w3-section">
+      <img class="mySlides" src="{% static 'images/ads/ad1.png' %}">
+      <img class="mySlides" src="{% static 'images/ads/ad2.jpg' %}">
+      <img class="mySlides" src="{% static 'images/ads/ad3.jpg' %}">
+      <img class="mySlides" src="{% static 'images/ads/ad4.jpg' %}">
+      <img class="mySlides" src="{% static 'images/ads/ad5.jpg' %}">       
+    </div>
+
+    <div id="msgboard" class="w3-content w3-section">
+
+      <img id="card_insert" class="myboard " src="{% static 'images/card_insert.png' %}">
+    <img id="card_verified"class="myboard" src="{% static 'images/card_verified.png' %}">
+     <img id="card_gp"class="myboard" src="{% static 'images/card_gp.png' %}">
+    <img id="card_notverified" class="myboard" src="{% static 'images/card_notverified.png' %}">
+    <img id="card_invalid" class="myboard" src="{% static 'images/card_invalid.png' %}">
+    <img id="card_exceed" class="myboard" src="{% static 'images/card_exceed.png' %}">
+    <img id="card_errors3" class="myboard" src="{% static 'images/card_errors3.png' %}">
+    <img id="card_errors4" class="myboard" src="{% static 'images/card_errors4.png' %}">
+     <img id="machine_unavailable" class="myboard" src="{% static 'images/machine_unavailable.png' %}">
+     <img id="novehicle" class="myboard" src="{% static 'images/novehicle.png' %}">
+     <img id="insert_ticket" class="myboard" src="{% static 'images/insert_ticket.png' %}">
+      <img id="used_ticket" class="myboard" src="{% static 'images/used_ticket.PNG' %}">
+
+      
+    </div>
+
+<div id="txt_excess" class="text-block">
+    <h2 class="exc_txt">Excess Time:[[txt_excess]]<h2>
+    <h2 class="exc_txt">Time Paid:[[txt_paid]]</h2>
+  </div>
+    
+
+
+   
+     
+   
+    
+
+  </div>
+  <div class="column right">
+     <h2 class="w3-text-white">This is hidden column</h2>
+
+  </div>
+
+         <!--  Context Menu -->
+       <ul class="menu">       
+        <li class="menu-item" id="settings"><a href="{% url 'login' %}"><i class="fa fa-gears"></i> Settings</a></li>
+        <li class="menu-item" id="refresh"><a href="{% url 'home' %}"><i class="fa fa-refresh"></i>  Refresh</a></li>
+        <li class="menu-item" id="minimize"><a href="#"><i class="fa fa-arrow-down"></i>  Minimize</a></li>
+        <li class="menu-item" id="restart"><a onclick="restart_machine()"><i class="fa fa-rotate-right"></i>  Restart Machine</a></li>
+        <li class="menu-item" id="shutdown"><a onclick="shutdown_machine()"><i class="fa fa-power-off"></i>  Shutdown Machine</a></li>      
+         
+       </ul>                                                         
+       <script>
+         let menu=null;
+         document.addEventListener('DOMContentLoaded', function(){
+
+          menu=document.querySelector('.menu');
+          menu.classList.add('off');
+
+          let box=document.getElementById('logo');
+          let box2=document.getElementById('slider');
+          let box3=document.getElementById('msgboard');
+          
+          box.addEventListener('contextmenu', showmenu);
+          box2.addEventListener('contextmenu', showmenu);
+          box3.addEventListener('contextmenu', showmenu);
+         
+          menu.addEventListener('mouseleave', hidemenu);
+
+
+          addMenuListeners();
+
+
+         });
+
+         function addMenuListeners(){
+          document.getElementById('settings').addEventListener('click',hidemenu);
+          document.getElementById('refresh').addEventListener('click',hidemenu);
+          document.getElementById('minimize').addEventListener('click',hidemenu);
+          document.getElementById('restart').addEventListener('click',hidemenu);
+          document.getElementById('shutdown').addEventListener('click',hidemenu);
+        
+
+         }
+
+         
+         function showmenu(ev){
+          ev.preventDefault();
+         
+          menu.style.top =`${ev.clientY-20}px`;
+          menu.style.left = `${ev.clientX-20}px`;
+          menu.classList.remove('off');
+         }
+
+         function hidemenu(ev){
+          menu.classList.add('off');
+          menu.style.top='-200%';
+          menu.style.left='-200%';
+         }
+
+         
+
+
+         function minime(){
+          window.innerWidth = 100;
+window.innerHeight = 100;
+window.screenX = screen.width;
+window.screenY = screen.height;
+alwaysLowered = true;
+         }
+       </script>
+
+
+       <!-- End of Context Menu -->
+</div>
+</body>
+
+ <footer>
+   <img src="{% static 'images/bg_footer_long_1024.png' %}">
+      
+  <marquee behavior="scroll" direction="left" scrollamount="15" hspace="14%" class="marquee-bottom w3-xlarge w3-animate-bottom bottom-right">Place your announcements here..... </marquee>
+  
+   
+  
+
+ 
+
+ </footer>
+
+
+
+ <script>
+ var timein_write;
+    var myIndex = 0;
+carousel();
+
+function carousel() {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";  
+  }
+  myIndex++;
+  if (myIndex > x.length) {myIndex = 1}    
+  x[myIndex-1].style.display = "block";
+    
+  setTimeout(carousel, 3000); // Change image every 3 seconds
+}
+
+ 
+
+
+</script>
+
+
+       
+{% endblock content %}
+
+
+<!-- <img id="logo"  class="w3-animate-zoom w3-circle w3-display-bottomright w3-margin-right w3-margin-top w3-white w3-padding-small w3-border-10" style="width:150px;height: 150px;" > -->
